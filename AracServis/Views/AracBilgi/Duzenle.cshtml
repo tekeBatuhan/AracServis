@@ -1,0 +1,51 @@
+﻿@model AracServis.Models.AracBilgi
+@{
+    ViewBag.Title = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Guncelle", "AracBilgi", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Araç Bilgi Düzenle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Marka</label>
+                        @Html.TextBoxFor(m => m.marka, new { @class = "form-control", @pattern = "[A-Za-z]{1,50}", @placeholder = "Marka Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Model</label>
+                        @Html.TextBoxFor(m => m.model, new { @class = "form-control", @pattern = "[A-Za-z]{1,50}", @placeholder = "Model Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Şasi No</label>
+                        @Html.TextBoxFor(m => m.sasiNo, new { @class = "form-control", @placeholder = "Şasi No Giriniz", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Plaka</label>
+                        @Html.TextBoxFor(m => m.plaka, new { @class = "form-control", @placeholder = "Plaka Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Müsteri</label>
+                        @Html.DropDownListFor(m => m.musteriID, (List<SelectListItem>)ViewBag.mst, new { @class = "form-control", @placeholder = "Müşteri Giriniz", @required = "required" })
+                    </div>
+                    @Html.HiddenFor(m => m.aracBilgiID)
+
+                </div>
+                
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-warning">Düzenle</button>
+            </div>
+        </form>
+    </div>
+}
+

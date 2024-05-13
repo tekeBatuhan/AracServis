@@ -1,0 +1,76 @@
+﻿@model AracServis.Models.AracBilgi
+@{
+    ViewBag.Title = "Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Ekle", "AracBilgi", FormMethod.Post))
+{
+
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Araç Ekle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Marka</label>
+                        <input type="text" class="form-control" name="marka" pattern="[A-Za-z]{1,50}" placeholder="Marka Giriniz" required title="Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Model</label>
+                        <input type="text" class="form-control" name="model" pattern="[A-Za-z]{1,50}" placeholder="Model Giriniz" required title="Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Şasi No</label>
+                        <input type="text" class="form-control" name="sasiNo" placeholder="Şasi No Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Plaka</label>
+                        <input type="text" class="form-control" name="plaka" placeholder="Plaka Giriniz" required />
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.musteriID)
+
+
+            </div>
+
+            <div style="margin-top:15px">
+                <button class="btn btn-info" id="btnkaydet">Ekle</button>
+            </div>
+
+
+        </form>
+    </div>
+
+
+
+
+
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnkaydet').click(function (e) {
+            e.preventDefault();
+            swal({
+                title: "Başarılı!",
+                text: "Araç Bilgi Eklendi.",
+                icon: "success",
+                buttons: {
+                    confirm: {
+                        text: "Tamam",
+                        value: "confirm",
+                    },
+                },
+            }).then((value) => {
+                if (value === "confirm") {
+                    $('form').submit();
+                }
+            });
+        });
+    });
+</script>

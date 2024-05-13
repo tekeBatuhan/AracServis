@@ -1,0 +1,68 @@
+﻿@model AracServis.Models.Kullanici
+@{
+    ViewBag.Title = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Guncelle", "Kullanici", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Kullanıcı Düzenle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        @Html.TextBoxFor(m => m.ad, new { @class = "form-control", @pattern = "[A-Za-z]{1,50}", @placeholder = "Ad Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Soyad</label>
+                        @Html.TextBoxFor(m => m.soyad, new { @class = "form-control", @pattern = "[A-Za-z]{1,50}", @placeholder = "Soyad Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Eposta</label>
+                        @Html.TextBoxFor(m => m.eposta, new { @class = "form-control", @pattern = "[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$", @placeholder = "Eposta Giriniz", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Şifre</label>
+                        @Html.TextBoxFor(m => m.sifre, new { @class = "form-control", @placeholder = "Şifre Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Ünvan</label>
+                        @Html.DropDownListFor(m => m.unvanID, (List<SelectListItem>)ViewBag.Unvan, new { @class = "form-control", @placeholder = "Ünvan Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Telefon</label>
+                        @Html.TextBoxFor(m => m.telefon, new { @class = "form-control", @pattern = "[0-9]{11}", @placeholder = "Telefon Giriniz", @required = "required", @title = "11 Haneli Bir Telefon Numarası Giriniz!" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Adres</label>
+                        @Html.TextBoxFor(m => m.adres, new { @class = "form-control", @placeholder = "Adres Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Cinsiyet</label>
+                        @Html.TextBoxFor(m => m.cinsiyet, new { @class = "form-control", @pattern = "[A-Za-z]{1,50}", @placeholder = "Cinsiyet Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Kimlik No</label>
+                        @Html.TextBoxFor(m => m.kimlikNo, new { @class = "form-control", @pattern = "[0-9]{11}", @placeholder = "Kimlik No Giriniz", @required = "required", @title = "11 Haneli Bir Kimlik Numarası Giriniz!" })
+                    </div>
+                    @Html.HiddenFor(m => m.kullaniciID)
+
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-warning">Düzenle</button>
+            </div>
+        </form>
+    </div>
+}

@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "EkleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("IslemEkle", "Islemler", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">İşlem Ekle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        <input type="text" class="form-control" placeholder="Ad Giriniz" required name="ad" id="ad" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Süre</label>
+                        <input type="text" class="form-control" name="suresi" id="suresi" placeholder="Süre Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Fiyat</label>
+                        <input type="number" class="form-control" name="fiyat" id="fiyat" pattern="[0-9]" placeholder="Fiyat Giriniz" required title="Lüffen Sayı Tipinde Bir Veri Girişi Yapınız.  " />
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div style="margin-right:50px">
+                <button class="btn btn-info" id="btnkaydet">İşlem Ekle</button>
+
+            </div>
+
+        </form>
+    </div>
+
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnkaydet').click(function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                swal({
+                    title: "Başarılı!",
+                    text: "İşlem eklendi.",
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            text: "Tamam",
+                            value: "confirm",
+                        },
+                    },
+                }).then((value) => {
+                    if (value === "confirm") {
+                        $('form').submit();
+                    }
+                });
+            }
+        });
+
+        function validateForm() {
+            var valid = true;
+
+            var fiyat = $('#fiyat').val();
+            if (fiyat === "") {
+                valid = false;
+                $('#fiyat').addClass('is-invalid');
+                swal("Hata!", "Fiyat alanı boş bırakılamaz.", "error");
+            } else if (!/^[0-9]/.test(fiyat)) {
+                valid = false;
+                $('#fiyat').addClass('is-invalid');
+                swal("Hata!", "Geçersiz fiyat.", "error");
+            } else {
+                $('#fiyat').removeClass('is-invalid');
+            }
+
+            var suresi = $('#suresi').val();
+            if (suresi === "") {
+                valid = false;
+                $('#suresi').addClass('is-invalid');
+                swal("Hata!", "suresi alanı boş bırakılamaz.", "error");
+            } else {
+                $('#suresi').removeClass('is-invalid');
+            }
+
+            var ad = $('#ad').val();
+            if (ad === "") {
+                valid = false;
+                $('#ad').addClass('is-invalid');
+                swal("Hata!", "Ad alanı boş bırakılamaz.", "error");
+            } else {
+                $('#ad').removeClass('is-invalid');
+            }
+
+
+
+
+
+            return valid;
+        }
+
+    });
+</script>
+
+

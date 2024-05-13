@@ -1,0 +1,94 @@
+﻿@model AracServis.Models.Kullanici
+
+@{
+    ViewBag.Title = "KullaniciEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("KullaniciEkle", "Kullanici", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Kullanıcı Ekle</h3>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        <input type="text" class="form-control" name="ad" pattern="[A-Za-z]{1,50}" placeholder="Ad Giriniz" required title="Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Soyad</label>
+                        <input type="text" class="form-control" name="soyad" pattern="[A-Za-z]{1,50}" placeholder="Soyad Giriniz" required title="Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="email">Eposta</label>
+                        <input type="email" class="form-control" name="eposta" pattern="[a-z0-9._%+\-]+@("@")[a-z0-9.\-]+\.[a-z]{2,}$" placeholder="Eposta Giriniz" required />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Şifre</label>
+                        <input type="text" class="form-control" name="sifre" placeholder="Şifre Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Ünvan</label>
+                        @Html.DropDownListFor(m => m.unvanID, (List<SelectListItem>)ViewBag.Unvan, new { @class = "form-control", @placeholder = "Ünvan Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Telefon</label>
+                        <input type="tel" class="form-control" name="telefon" pattern="[0-9]{11}" maxlength="11" placeholder="Telefon Giriniz" required title="11 Haneli Bir Telefon Numarası Giriniz!" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Adres</label>
+                        <input type="text" class="form-control" name="adres" placeholder="Adres Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Cinsiyet</label>
+                        <input type="text" class="form-control" name="cinsiyet" pattern="[A-Za-z]{1,50}" placeholder="Cinsiyet Giriniz" required title="Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Kimlik No</label>
+                        <input type="tel" class="form-control" name="kimlikNo" pattern="[0-9]{11}" maxlength="11" placeholder="Kimlik No Giriniz" required title="11 Haneli Bir Tc Kimlik Numarası Giriniz!" />
+                    </div>
+                    @Html.HiddenFor(m => m.kullaniciID)
+
+
+                </div>
+            </div>
+            <div style="margin-top:15px">
+                <button class="btn btn-info" id="btnkaydet">Kullanıcı Ekle</button>
+            </div>
+        </form>
+    </div>
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnkaydet').click(function (e) {
+            e.preventDefault();
+            swal({
+                title: "Başarılı!",
+                text: "Araç İşlem Bilgi Eklendi.",
+                icon: "success",
+                buttons: {
+                    confirm: {
+                        text: "Tamam",
+                        value: "confirm",
+                    },
+                },
+            }).then((value) => {
+                if (value === "confirm") {
+                    $('form').submit();
+                }
+            });
+        });
+    });
+</script>
+
+

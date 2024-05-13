@@ -1,0 +1,79 @@
+﻿@model List<AracServis.Models.Kullanici>
+
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div class="card">
+    <div class="card-header">
+        <table style="width:100%;">
+            <tr>
+                <td><h3>Kullanıcı</h3></td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Telefon</th>
+                    <th>E-Posta</th>
+                    <th>Adres</th>
+                    <th>Cinsiyet</th>
+                    <th>Kimlik No</th>
+                    <th>Ünvan</th>
+
+                    <td style="text-align:right;">
+                        <a href="/Kullanici/KullaniciEkleIndex" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            kullanıcı  Ekle
+                        </a>
+
+                    </td>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AracServis.Models.Kullanici kulanici in Model) //(var item in Model)
+                {
+                    <tr>
+                        <td>@kulanici.ad</td>
+                        <td>@kulanici.soyad</td>
+                        <td>@kulanici.telefon</td>
+                        <td>@kulanici.eposta</td>
+                        <td>@kulanici.adres</td>
+                        <td>@kulanici.cinsiyet</td>
+                        <td>@kulanici.kimlikNo</td>
+                        <td>@kulanici.Unvan.ad</td>
+
+                        <td style="text-align:right;">
+                            <a href="/Kullanici/Duzenle/@kulanici.kullaniciID" class="btn btn-info" title="Düzenle">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="/Kullanici/Sil/@kulanici.kullaniciID" class="btn btn-danger btnsil" title="Sil">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

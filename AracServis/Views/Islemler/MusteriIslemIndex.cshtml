@@ -1,0 +1,113 @@
+﻿@model List<AracServis.Models.Islem>
+@{
+    ViewBag.Title = "MusteriIslemIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+
+<div class="card card-widget widget-user">
+
+    <div class="widget-user-header bg-info" style="height:85px;">
+        <h1 class="description-header">Müşteri</h1>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-3 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().AracBilgi.Musteri.ad) @(Model.FirstOrDefault().AracBilgi.Musteri.soyad)</h5>
+                    <span class="description-text">Ad / Soyad</span>
+                </div>
+            </div>
+
+            <div class="col-sm-3 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().AracBilgi.Musteri.telefon)</h5>
+                    <span class="description-text">Telefon</span>
+                </div>
+            </div>
+
+            <div class="col-sm-3 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().AracBilgi.marka) / @(Model.FirstOrDefault().AracBilgi.model)</h5>
+                    <span class="description-text">Marka / Model</span>
+                </div>
+            </div>
+
+            <div class="col-sm-3 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().AracBilgi.plaka)</h5>
+                    <span class="description-text">Plaka</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <table style="width:100%;">
+            <tr>
+                <td><h3>İşlem Bİlgi</h3></td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Islem Ad</th>
+                    <th>Sure</th>
+                    <th>Fiyat</th>
+                    <th>Giris Tarih</th>
+                    <th>Cikis Tarih</th>
+                    <th>Aciklama</th>
+                    <td style="text-align:right;">
+                        <a href="/Islemler/MusteriIslemEkleIndex/@Model.FirstOrDefault().AracBilgi.aracBilgiID" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            Araca Islem Ekle
+                        </a>
+
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (AracServis.Models.Islem islem in Model) //(var item in Model)
+                {
+                    <tr>
+                        <td>@islem.IslemTur.ad</td>
+                        <td>@islem.IslemTur.suresi</td>
+                        <td>@islem.IslemTur.fiyat</td>
+                        <td>@islem.girisTarihi</td>
+                        <td>@islem.cikisTarihi</td>
+                        <td>@islem.aciklama</td>
+
+                        <td style="text-align:right;">
+                       
+                            <a href="/Islemler/MusteriIslemSil/@islem.islemID" class="btn btn-danger" title="Sil">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

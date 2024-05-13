@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "MusteriEkleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("MusteriEkle", "Musteri", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Müşteri Ekle</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="form-group col-4">
+                    <label>Ad</label>
+                    <input type="text" class="form-control" name="ad" id="ad" pattern="[A-Za-z]{1,50}" placeholder="Ad Giriniz" required title="Lütfen [A-Z]-[a-z] Aralığında Ve Maximum 50 Karakter Giriniz!" />
+                </div>
+                <div class="form-group col-4">
+                    <label>Soyad</label>
+                    <input type="text" class="form-control" name="soyad" id="soyad" pattern="[A-Za-z]{1,50}" placeholder="Soyad Giriniz" required title="Lütfen [A-Z] Aralığında Bir Karakter Giriniz!" />
+                </div>
+                <div class="form-group col-4">
+                    <label>telefon</label>
+                    <input type="tel" class="form-control" name="telefon" id="telefon" pattern="[0-9]{11}" maxlength="11" placeholder="Telefon Giriniz" required title="11 Haneli Bir Telefon Numarası Giriniz!" />
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:15px">
+            <button class="btn btn-info" id="btnkaydet">Müşteri Ekle</button>
+        </div>
+    </div>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnkaydet').click(function (e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                swal({
+                    title: "Başarılı!",
+                    text: "Müşteri eklendi.",
+                    icon: "success",
+                    buttons: {
+                        confirm: {
+                            text: "Tamam",
+                            value: "confirm",
+                        },
+                    },
+                }).then((value) => {
+                    if (value === "confirm") {
+                        $('form').submit();
+                    }
+                });
+            }
+        });
+
+        function validateForm() {
+            var valid = true;
+
+            var telefon = $('#telefon').val();
+            if (telefon === "") {
+                valid = false;
+                $('#telefon').addClass('is-invalid');
+                swal("Hata!", "Telefon alanı boş bırakılamaz.", "error");
+            } else if (!/^[0-9]{11}$/.test(telefon)) {
+                valid = false;
+                $('#telefon').addClass('is-invalid');
+                swal("Hata!", "Geçersiz telefon numarası formatı Lütfen 11 haneli bir telefon numarası girniz.", "error");
+            } else {
+                $('#telefon').removeClass('is-invalid');
+            }
+
+            var soyad = $('#soyad').val();
+            if (soyad === "") {
+                valid = false;
+                $('#soyad').addClass('is-invalid');
+                swal("Hata!", "Soyad alanı boş bırakılamaz.", "error");
+            } else {
+                $('#soyad').removeClass('is-invalid');
+            }
+
+            var ad = $('#ad').val();
+            if (ad === "") {
+                valid = false;
+                $('#ad').addClass('is-invalid');
+                swal("Hata!", "Ad alanı boş bırakılamaz.", "error");
+            } else {
+                $('#ad').removeClass('is-invalid');
+            }
+
+        
+
+        
+
+            return valid;
+        }
+
+    });
+</script>

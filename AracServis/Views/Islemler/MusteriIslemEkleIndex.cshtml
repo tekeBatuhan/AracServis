@@ -1,0 +1,67 @@
+﻿@model AracServis.Models.Islem
+
+@{
+    ViewBag.Title = "MusteriIslemEkleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("MusteriIslemEkle", "Islemler", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">İşlem Ekle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        @Html.DropDownListFor(a=>a.islemTurID, (List<SelectListItem>)ViewBag.IslemTur, new { @class = "form-control", @placeholder = "ad Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Giriş Tarihi</label>
+                        <input type="date" class="form-control" name="giristarihi" placeholder="Giriş Tarihi Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Çikiş Tarihi</label>
+                        <input type="date" class="form-control" name="cikistarihi" placeholder="Çıkış Tarihi Giriniz" required />
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Açıklama</label>
+                        <input type="text" class="form-control" name="aciklama" />
+                    </div>
+                    @Html.HiddenFor(a=>a.aracBilgiID)
+                </div>
+            </div>
+
+            <div style="margin-top:15px">
+                <button class="btn btn-info btnkaydet" id="btnkaydet">İşlem Ekle</button>
+            </div>
+        </form>
+    </div>
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnkaydet').click(function (e) {
+            e.preventDefault();
+            swal({
+                title: "Başarılı!",
+                text: "Araç İşlem Bilgi Eklendi.",
+                icon: "success",
+                buttons: {
+                    confirm: {
+                        text: "Tamam",
+                        value: "confirm",
+                    },
+                },
+            }).then((value) => {
+                if (value === "confirm") {
+                    $('form').submit();
+                }
+            });
+        });
+    });
+</script>

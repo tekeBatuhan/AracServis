@@ -1,0 +1,65 @@
+﻿@model List<AracServis.Models.IslemTur>
+
+   
+
+    <div class="card">
+        <div class="card-header">
+            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+            {
+                <div class="alert alert-danger">
+                    @TempData["ErrorMessage"]
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+            {
+                <div class="alert alert-success">
+                    @TempData["SuccessMessage"]
+                </div>
+            }
+
+            <table style="width:100%;">
+                <tr>
+                    <td><h3>İşlemler</h3></td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ad</th>
+                        <th>Süresi</th>
+                        <th>Fiyat</th>
+                        <td style="text-align:right;">
+                            <a href="/Islemler/EkleIndex" class="btn btn-success">
+                                <i class="fa fa-check"></i>
+                                İşlem Ekle
+                            </a>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (AracServis.Models.IslemTur islem in Model)
+                    {
+                        <tr>
+                            <td>@islem.ad</td>
+                            <td>@islem.suresi</td>
+                            <td>@islem.fiyat</td>
+                            <td style="text-align:right;">
+                                <a href="/Islemler/Duzenle/@islem.islemTurID" class="btn btn-info" title="Düzenle">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                              
+                                <a href="/Islemler/Sil/@islem.islemTurID" class="btn btn-danger" title="Sil">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+

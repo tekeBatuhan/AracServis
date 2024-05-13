@@ -1,0 +1,40 @@
+﻿@model AracServis.Models.Musteri
+
+@{
+    ViewBag.Title = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("Guncelle", "Musteri", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Müşteri Düzenle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        @Html.TextBoxFor(m => m.ad, new { @class = "form-control", @pattern = "[A-Za-Z{1,50}]", @placeholder = "Ad Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Soyad</label>
+                        @Html.TextBoxFor(m => m.soyad, new { @class = "form-control",@pattern = "[A-Za-z{1,50}]", @placeholder = "Soyad Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Telefon</label>
+                        @Html.TextBoxFor(m => m.telefon,  new { @class = "form-control", @pattern = "[0-9]{11}", @placeholder = "Telefon Giriniz", @required = "required", @title = "11 Haneli Bir Telefon Numarası Giriniz!" })
+                    </div>
+                </div>
+
+                @Html.HiddenFor(m => m.musteriID)
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-warning">Düzenle</button>
+            </div>
+        </form>
+    </div>
+}

@@ -1,0 +1,107 @@
+﻿@model List<AracServis.Models.Musteri>
+<div class="card">
+    <div class="card-header">
+
+        @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <table style="width:100%;">
+            <tr>
+                <td><h3>Müşteriler</h3></td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Telefon</th>
+                    <th></th>
+
+
+
+                    <td style="text-align:right;">
+                        <a href="/Musteri/MusteriEkleIndex" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            Müşteri  Ekle
+                        </a>
+
+                    </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AracServis.Models.Musteri musteri in Model) //(var item in Model)
+                {
+                    <tr>
+                        <td>@musteri.ad</td>
+                        <td>@musteri.soyad</td>
+                        <td>@musteri.telefon</td>
+
+
+
+                        <td>
+
+                            @{
+                                bool kontrol = false;
+                                kontrol = musteri.AracBilgi.ToList().Count > 0 ? true : false;
+
+                                if (kontrol)
+                                {
+                                    <a href="/AracBilgi/MusteriAracIndex/@musteri.musteriID" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                        Arac Bilgi
+                                    </a>
+                                }
+
+                                else
+                                {
+                                    <a href="/AracBilgi/EkleIndex/@musteri.musteriID" class="btn btn-warning">
+                                        <i class="fa fa-check"></i>
+                                        Araç Ekle
+                                    </a>
+
+                                }
+
+                            }
+
+                        </td>
+
+
+
+
+                        <td style="text-align:right;">
+                            <a href="/Musteri/Duzenle/@musteri.musteriID" class="btn btn-info" title="Düzenle">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="/Musteri/Sil/@musteri.musteriID" class="btn btn-danger" title="Sil">
+                                <i class="fa fa-trash"></i>
+                            </a>
+
+
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+

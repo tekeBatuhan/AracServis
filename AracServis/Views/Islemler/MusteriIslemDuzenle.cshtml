@@ -1,0 +1,44 @@
+﻿@model AracServis.Models.Islem
+@{
+    ViewBag.Title = "MusteriIslemDuzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Guncelle", "Islemler", FormMethod.Post))
+{
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">İşlem Düzenle</h2>
+        </div>
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label>Ad</label>
+                        @Html.DropDownListFor(m => m.islemTurID, islemTurList, new { @class = "form-control", @pattern = "[A-Za-Z]{1,50}", @placeholder = "Ad Giriniz", @required = "required", @title = "Lütfen [A-Z]-[a-z] Aralıgında Ve Maximum 50 Karakter Giriniz!" })
+
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Giriş Tarihi</label>
+                        @Html.TextBoxFor(m => m.girisTarihi, new { @class = "form-control", @placeholder = "Giriş Tarihi Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Çıkış Tarihi</label>
+                        @Html.TextBoxFor(m => m.cikisTarihi, new { @class = "form-control", @placeholder = "Çıkış Tarihi Giriniz", @required = "required" })
+                    </div>
+                    <div class="form-group col-4">
+                        <label>Açıklama</label>
+                        @Html.TextBoxFor(m => m.aciklama, new { @class = "form-control", @placeholder = "Açıklama Giriniz", @required = "required" })
+                    </div>
+                </div>
+
+                @Html.HiddenFor(m => m.islemID)
+
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-warning">Düzenle</button>
+            </div>
+        </form>
+    </div>
+}
+

@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<AracServis.Models.AracBilgi>
+
+<div class="card card-widget widget-user">
+
+    <div class="widget-user-header bg-info" style="height:85px;">
+        <h1 class="description-header">Müşteri</h1>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-sm-6 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().Musteri.ad) @(Model.FirstOrDefault().Musteri.soyad)</h5>
+                    <span class="description-text">Ad / Soyad</span>
+                </div>
+            </div>
+
+            <div class="col-sm-6 border-right">
+                <div class="description-block">
+                    <h5 class="description-header">@(Model.FirstOrDefault().Musteri.telefon)</h5>
+                    <span class="description-text">Telefon</span>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        @if (!string.IsNullOrEmpty(TempData["ErrorMessage"] as string))
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        <table style="width:100%;">
+            <tr>
+                <td><h3>Araçlar</h3></td>
+
+            </tr>
+        </table>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Marka</th>
+                    <th>Model</th>
+                    <th>Şasi No</th>
+                    <th>Plaka</th>
+                    <th></th>
+
+
+
+                    <td style="text-align:right;">
+                        <a href="/AracBilgi/EkleIndex/@Model.FirstOrDefault().Musteri.musteriID" class="btn btn-success">
+                            <i class="fa fa-check"></i>
+                            Araç Ekle
+                        </a>
+
+                    </td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (AracServis.Models.AracBilgi aracBilgi in Model) //(var item in Model)
+                {
+                    <tr>
+                        <td>@aracBilgi.marka</td>
+                        <td>@aracBilgi.model</td>
+                        <td>@aracBilgi.sasiNo</td>
+                        <td>@aracBilgi.plaka</td>
+                        <td>
+                            @{
+                                bool kontrol = false;
+                                kontrol = aracBilgi.Islem.ToList().Count > 0 ? true : false;
+
+                                if (kontrol)
+                                {
+                                    <a href="/Islemler/MusteriIslemIndex/@aracBilgi.aracBilgiID" class="btn btn-success">
+                                        <i class="fa fa-check"></i>
+                                        İşlem BiLgi
+                                    </a>
+                                }
+
+                                else
+                                {
+                                    <a href="/Islemler/MusteriIslemEkleIndex/@aracBilgi.aracBilgiID" class="btn btn-warning">
+                                        <i class="fa fa-check"></i>
+                                        Araca Islem Ekle
+                                    </a>
+
+                                }
+
+                            }
+
+
+                        </td>
+
+
+
+                        <td style="text-align:right;">
+                            <a href="/AracBilgi/Duzenle/@aracBilgi.aracBilgiID" class="btn btn-info" title="Düzenle">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="/AracBilgi/Sil/@aracBilgi.aracBilgiID" class="btn btn-danger" title="Sil">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
